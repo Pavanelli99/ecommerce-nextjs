@@ -1,4 +1,5 @@
 import ThemeProvider from '@/provider/ThemeProvider';
+import LayoutProvider from '@/provider/LayoutProvider';
 import './globals.css';
 import type { Metadata } from 'next';
 
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LayoutProvider>{children}</LayoutProvider>
+          </ThemeProvider>
       </body>
     </html>
   );
