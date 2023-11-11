@@ -43,7 +43,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
     try {
       setLoading(true);
       // get axios in backend
-      setCurrentUser('Beto');
+      setCurrentUser('Eduardo');
     } catch (error: any) {
       message.error(error.message);
     } finally {

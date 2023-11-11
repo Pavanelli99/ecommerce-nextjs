@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { Tabs } from 'antd';
-// import CategoriesList from './components/CategoriesList';
+import CategoriesList from './components/CategoriesList';
 
 function Profile() {
   return (
@@ -11,7 +11,7 @@ function Profile() {
           Products
         </Tabs.TabPane>
         <Tabs.TabPane tab="Categories" key="2">
-          {/* <CategoriesList /> */}
+           <CategoriesList />
         </Tabs.TabPane>
         <Tabs.TabPane tab="Orders" key="3">
           Orders
