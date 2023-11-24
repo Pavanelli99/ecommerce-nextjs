@@ -11,18 +11,31 @@ function CategoryForm({
   showCategoryForm,
   setShowCategoryForm,
   reloadData,
+  category,
+  setSelectedCategory,
 }: CategoryFormProps) {
 
-  const [form] = Form.useForm ()
+  const [form] = Form.useForm()
 
-  const onFinish =async (values: CategoryFormData) => {  // arrow function =>
+  const onFinish = async (values: CategoryFormData) => {  // arrow function =>
     try {
-       const res = await axios.post("http:localhost:3000/category", values)
-       message.success("Category added successfully")
-       reloadData();
-       setShowCategoryForm(false);
 
-    } catch (error: any)  {
+      if (category) {
+       await axios.put(`http://localhost:3000/category/${category.id}`, values);
+       message.success('Category updated successfully');
+
+      } else {
+
+        const res = await axios.post('http://localhost:3000/category', values);
+        message.success("Category added successfully");
+
+      }
+
+      reloadData();
+      setShowCategoryForm(false);
+      setSelectedCategory(null);
+
+    } catch (error: any) {
       message.error(error.message)
 
     }
@@ -32,10 +45,12 @@ function CategoryForm({
   return (
     <Modal
 
-      title="Add Category"
+      title={<h1 className="text-2xl font-bold" text-gray-800>
+        {category ? "Edit Category" : "Add Category"} </h1>}
       open={showCategoryForm}
       onCancel={() => {
         setShowCategoryForm(false);
+        setSelectedCategory(null);
       }}
       centered
       closable={false}
@@ -47,12 +62,14 @@ function CategoryForm({
       <Form
         layout="vertical"
         className="flex flex-col gap-5"
-        form= {form}
+        form={form}
+        onFinish={onFinish}
+        initialValues={category}
 
       >
         <Form.Item
           label="Category Name"
-          name = "Name"
+          name="Name"
           rules={getAntdFieldsRequireRule("CategoryName is required!")}
 
 
@@ -62,7 +79,7 @@ function CategoryForm({
         </Form.Item>
         <Form.Item
           label="Description"
-          name = "description"
+          name="description"
           rules={getAntdFieldsRequireRule("Description is required!")}
 
         >
@@ -83,4 +100,6 @@ interface CategoryFormProps {
   showCategoryForm: boolean;
   setShowCategoryForm: (Show: boolean) => void;
   reloadData: () => void;
+  category: any;
+  setSelectedCategory: (category: any) => void;
 }
