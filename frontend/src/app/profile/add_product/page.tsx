@@ -1,15 +1,26 @@
-// use client;
+
 import React, { useEffect, useState } from 'react';
 import ProductForm from '../components/ProductForm';
 import { useRouter } from 'next/router'; // Corrigindo a importação para useRouter
 import { message } from 'antd';
 import axios from 'axios';
+import { uploadImageAndReturnUrls } from 'd:/TADS2020/Novo_ppc/framework/ecommerce-nextjs/ecommerce-nextjs/frontend/src/helpers/imageHanding';
+
 
 function AddProduct() {
   const [selectedFiles, setSelectedFiles] = useState([]); // Corrigindo a inicialização do state
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // interface AddFormProps para o formulário de adição de produto
+  interface AddFormProps {
+    name: string;
+    description: string;
+    price: number;
+    categoryId: string; // Ou o tipo apropriado para o ID da categoria
+    stock: number;
+    // Adicione outros campos conforme necessário para o seu formulário
+  }
 
 
   // Função para salvar o produto com imagens

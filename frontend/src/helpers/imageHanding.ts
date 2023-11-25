@@ -1,7 +1,7 @@
 import { DividerProps } from "antd"; // Import correto do Ant Design DividerProps
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Imports corrigidos para as funções do Firebase Storage
 
-const uploadImageAndReturnUrls = async (files:any) => {
+export const uploadImageAndReturnUrls = async (files:any) => {
   try {
     const storage = getStorage(); // Inicialize o Firebase Storage corretamente
     const imageRefs = await Promise.all(
