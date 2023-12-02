@@ -4,18 +4,9 @@ import { LoginController } from './login.controller';
 import { PrismaModule } from 'src/database/prisma.module';
 import { UserModule } from 'src/models/user/user.module';
 import { UserService } from 'src/models/user/user.service';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [
-    UserModule,
-    PrismaModule,
-    JwtModule.register({
-      global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: '60s' },
-    }),
-  ],
+  imports: [UserModule, PrismaModule],
   controllers: [LoginController],
   providers: [LoginService, UserService],
 })

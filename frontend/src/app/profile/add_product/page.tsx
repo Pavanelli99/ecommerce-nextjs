@@ -1,50 +1,70 @@
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import ProductForm from '../components/ProductForm';
-import { useRouter } from 'next/router'; // Corrigindo a importação para useRouter
-import { message } from 'antd';
+import { useRouter } from 'next/navigation';
+import { message, notification } from 'antd';
 import axios from 'axios';
-import { uploadImageAndReturnUrls } from 'd:/TADS2020/Novo_ppc/framework/ecommerce-nextjs/ecommerce-nextjs/frontend/src/helpers/imageHanding';
-
+import { uploadImageAndReturnUrls } from '@/helpers/imageHanding';
 
 function AddProduct() {
-  const [selectedFiles, setSelectedFiles] = useState([]); // Corrigindo a inicialização do state
+  const [selectedFiles = [], setSelectedFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // interface AddFormProps para o formulário de adição de produto
   interface AddFormProps {
     name: string;
     description: string;
     price: number;
-    categoryId: string; // Ou o tipo apropriado para o ID da categoria
     stock: number;
-    // Adicione outros campos conforme necessário para o seu formulário
+    rate: 0
   }
 
+  interface ImgFormProps {
+    url: string;
+    productId: string;
+  }
 
-  // Função para salvar o produto com imagens
+  // save product with images
   const onSave = async (values: AddFormProps) => {
     try {
       setLoading(true);
       const imgUrls = await uploadImageAndReturnUrls(selectedFiles);
-      values.price = Number(values.price)
-      values.stock = Number(values.stock)
+      values.price = Number(values.price);
+      values.stock = Number(values.stock);
+      values.rate = 0;
 
+      // save product info
+      const respProduct = await axios.post(
+        'http://localhost:3000/product',
+        values
+      );
 
-      //save product info
-      const respProduct = await axios.post("http://localhost:3000/product", values);
+      if (imgUrls && imgUrls.length > 0) {
+        imgUrls.forEach((img) => {
+          const imgForm: ImgFormProps = {
+            url: img,
+            productId: respProduct.data.id,
+          };
 
-      console.log(respProduct)
-      // tendo o id do produto fazer um POST em images com as urls e id do produto
+          axios.post('http://localhost:3000/image', imgForm);
+        });
+      }
 
-
-
-
-
-
+      notification.success({
+        message: 'Product saved successfully',
+        description: `Product ${values.name} saved successfully`,
+      });
+      // console.log(respProduct)
+      // tendo o ID do product fazer um POST em images com as URLs e ID do produto
+      router.push('/profile?id=2');
     } catch (error: any) {
-      message.error(error.message);
+      notification.error({
+        message: 'Error',
+        description: error.message,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,7 +74,7 @@ function AddProduct() {
       <hr />
 
       <ProductForm
-        setSelectedFiles={setSelectedFiles} // Corrigindo a passagem da prop
+        setSelectedFiles={setSelectedFiles}
         loading={loading}
         onSave={onSave}
       />

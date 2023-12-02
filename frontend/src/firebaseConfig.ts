@@ -6,7 +6,7 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
- const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDQ1GYVgN6hz54_1W3qe-QNZK5zo2Sy_G8",
   authDomain: "ecommerce-nextjs-41ceb.firebaseapp.com",
   projectId: "ecommerce-nextjs-41ceb",
@@ -17,5 +17,5 @@ import { getAnalytics } from "firebase/analytics";
 };
 
 // Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);

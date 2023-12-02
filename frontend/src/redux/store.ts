@@ -1,25 +1,23 @@
-import { configureStore } from "@reduxjs/toolkit"
-import { userSlice } from "./userSlice"
-import { cartSlice } from "./cartSlice"
+import { configureStore } from '@reduxjs/toolkit';
+import { userSlice } from './userSlice';
+import { cartSlice } from './cartSlice';
 
-let initialCartItems= []
-if(typeof window !== "undefined"){
-  initialCartItems =  JSON.parse(localStorage.getItem('cartItems') || "[]")
+let initialCartItems = [];
+if (typeof window !== 'undefined') {
+  initialCartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
 }
 
 const store = configureStore({
   reducer: {
     user: userSlice.reducer,
     cart: cartSlice.reducer,
-
   },
   preloadedState: {
     cart: {
-      catItems: initialCartItems,
+      cartItems: initialCartItems,
       cartTotal: 0,
-    }
-  }
-
-})
+    },
+  },
+});
 
 export default store;

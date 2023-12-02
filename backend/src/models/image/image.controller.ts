@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ImageService } from './image.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
@@ -19,16 +27,16 @@ export class ImageController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.imageService.findOne(+id);
+    return this.imageService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateImageDto: UpdateImageDto) {
-    return this.imageService.update(+id, updateImageDto);
+    return this.imageService.update(id, updateImageDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.imageService.remove(+id);
+    return this.imageService.remove(id);
   }
 }

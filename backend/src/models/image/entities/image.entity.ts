@@ -1,5 +1,5 @@
 export class Image {
-  id: number;
+  id: string;
   url: string;
-  productId: number;
+  productId: string;
 }

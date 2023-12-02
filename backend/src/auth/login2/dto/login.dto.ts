@@ -1,5 +1,5 @@
-export class Login {
-  id: string;
+export class LoginDto {
   email: string;
   password: string;
+  id: any;
 }

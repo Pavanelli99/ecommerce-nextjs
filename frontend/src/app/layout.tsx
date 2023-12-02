@@ -2,7 +2,7 @@ import ThemeProvider from '@/provider/ThemeProvider';
 import './globals.css';
 import type { Metadata } from 'next';
 import LayoutProvider from '@/provider/LayoutProvider';
-import StoreProvider from '@/provider/storeProvider';
+import StoreProvider from '@/provider/StoreProvider';
 
 export const metadata: Metadata = {
   title: 'Framework Shop',
@@ -25,12 +25,9 @@ export default function RootLayout({
       <body>
         <StoreProvider>
           <ThemeProvider>
-
             <LayoutProvider>{children}</LayoutProvider>
-
           </ThemeProvider>
         </StoreProvider>
-
       </body>
     </html>
   );

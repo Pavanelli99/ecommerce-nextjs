@@ -1,4 +1,3 @@
-// use client;
 import { getAntdFieldsRequireRule } from '@/helpers/validations';
 import { Button, Form, Upload, message } from 'antd';
 import axios from 'axios';
@@ -6,27 +5,21 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 function ProductForm({ setSelectedFiles, loading, onSave }: ProductFormProps) {
-
   const [categories, setCategories] = useState([]);
   const router = useRouter();
 
   const getCategories = async () => {
-    const getCategories = async () => {
-      try {
-        const res = await axios.post('http:localhost:3000/category')
-        setCategories(res.data)
-      } catch (error: any) {
-        message.error(error.message)
+    try {
+      const res = await axios.get('http://localhost:3000/category');
+      setCategories(res.data);
+    } catch (error: any) {
+      message.error(error.message);
+    }
+  };
 
-      }
-    };
-
-    useEffect(() => {
-      getCategories();
-      console.log(categories)
-    }, [])
-
-  }
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div>
@@ -68,6 +61,7 @@ function ProductForm({ setSelectedFiles, loading, onSave }: ProductFormProps) {
         >
           <select>
             <option value="">Select Category</option>
+
             {categories.map((category: any) => (
               <option key={category.id} value={category.id}>
                 {category.name}
@@ -84,16 +78,16 @@ function ProductForm({ setSelectedFiles, loading, onSave }: ProductFormProps) {
         </Form.Item>
 
         <div className="col-span-3">
-          <Upload listType="picture-card"
+          <Upload
+            listType="picture-card"
             multiple
             beforeUpload={(file) => {
-              setSelectedFiles((prev: any) => [...prev, file])
+              setSelectedFiles((prev: any) => [...prev, file]);
               return false;
-
-            }
-            }
-
-          >Upload</Upload>
+            }}
+          >
+            Upload
+          </Upload>
         </div>
         <div className="col-span-3 gap-5 flex justify-end ">
           <Button
@@ -122,6 +116,5 @@ export default ProductForm;
 interface ProductFormProps {
   setSelectedFiles: any;
   loading: boolean;
-
   onSave: any;
 }

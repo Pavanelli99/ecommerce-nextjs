@@ -17,46 +17,34 @@ export class ProductService {
     const products = await this.prisma.product.findMany({
       include: {
         category: true,
+        images: true,
       },
     });
     // include images in product
-    const productsWithImages = await Promise.all(
-      products.map(async (product) => {
-        const images = await this.prisma.image.findMany({
-          where: { productId: product.id },
-        });
-        return { ...product, images };
-      }),
-    );
 
-    return productsWithImages;
+    return products;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.prisma.product.findUnique({
       where: { id },
       include: {
         category: true,
+        images: true,
       },
     });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  update(id: string, updateProductDto: UpdateProductDto) {
     return this.prisma.product.update({
       where: { id },
       data: updateProductDto,
     });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.prisma.product.delete({
       where: { id },
-    });
-  }
-
-  loadImages(id: number) {
-    return this.prisma.image.findMany({
-      where: { productId: id },
     });
   }
 }

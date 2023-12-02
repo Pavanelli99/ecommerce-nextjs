@@ -15,15 +15,15 @@ export class ImageService {
     return this.prisma.image.findMany();
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.prisma.image.findUnique({ where: { id } });
   }
 
-  update(id: number, updateImageDto: UpdateImageDto) {
+  update(id: string, updateImageDto: UpdateImageDto) {
     return this.prisma.image.update({ where: { id }, data: updateImageDto });
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.prisma.image.delete({ where: { id } });
   }
 }

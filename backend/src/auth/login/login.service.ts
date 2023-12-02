@@ -1,40 +1,49 @@
-import { Injectable } from '@nestjs/common';
-import { LoginDto } from './dto/login.dto';
-import { UpdateLoginDto } from './dto/update-login.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+
 import { UserService } from 'src/models/user/user.service';
+import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class LoginService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwt: JwtService,
+  ) {}
 
-  async login(loginDto: LoginDto): Promise<LoginDto> {
+  async login(loginDto: LoginDto) {
     const { email, password } = loginDto;
 
     const user = await this.userService.findByEmail(email);
+
     if (!user) {
       throw new Error('User not found');
     }
+
     if (user.password !== password) {
       throw new Error("Password doesn't match");
     }
 
+    const payload = { email: user.email, sub: user.id };
+
     console.log(user);
-    return loginDto;
+    return {
+      access_token: this.jwt.sign(payload, {
+        secret: process.env.JWT_SECRET,
+        expiresIn: '2h',
+      }),
+    };
   }
 
-  findAll() {
-    return `This action returns all login`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} login`;
-  }
-
-  update(id: number, updateLoginDto: UpdateLoginDto) {
-    return `This action updates a #${id} login`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} login`;
+  checkToken(token: any) {
+    try {
+      const data = this.jwt.verify(token);
+      const user = this.userService.findByEmail(data.email);
+      // remove password from user object
+      user.then((u) => delete u.password);
+      return user;
+    } catch (e) {
+      throw new BadRequestException(e);
+    }
   }
 }
