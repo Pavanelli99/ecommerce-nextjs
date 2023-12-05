@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
+import { ProductInterface } from '@/interfaces';
+import Image from 'next/image';
 import { Button, Table, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -35,7 +37,9 @@ function ProductsList() {
       key: 'name',
       render: (text: string, record: any) => (
         <img
-          src={record.images[0].url || ''}
+          // src={record.images[0].url || ''} //dá erro
+          src={(record.images && record.images.length > 0) ? record.images[0].url : ''}
+
           alt={record.name}
           className="w-20 h-20 object-scale-down rounded-full"
         />

@@ -8,6 +8,8 @@ import { LoginModule } from './auth/login2/login.module';
 import { CategoryModule } from './models/category/category.module';
 import { ProductModule } from './models/product/product.module';
 import { ImageModule } from './models/image/image.module';
+import { PaymentModule } from './models/payment/payment.module';
+import { OrdersModule } from './models/orders/orders.module';
 
 const imports = [
   UserModule,
