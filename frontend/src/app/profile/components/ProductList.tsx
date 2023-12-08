@@ -37,7 +37,7 @@ function ProductsList() {
       key: 'name',
       render: (text: string, record: any) => (
         <img
-          src={record.images[0].url || ''} //Inserir ? antes do ponto solucionou
+          src={record.images[0]?.url || ''} //Inserir ? antes do ponto solucionou
 
 
           alt={record.name}
