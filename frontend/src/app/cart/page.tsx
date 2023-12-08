@@ -43,7 +43,7 @@ function Cart() {
               >
                 <div className="col-span-4 flex gap-2 items-center">
                   <Image
-                    src={item.images[0].url}
+                    src={item.images[0]?.url}
                     alt=""
                     height={80}
                     width={80}

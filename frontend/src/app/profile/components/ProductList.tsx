@@ -37,8 +37,8 @@ function ProductsList() {
       key: 'name',
       render: (text: string, record: any) => (
         <img
-          // src={record.images[0].url || ''} //dá erro
-          src={(record.images && record.images.length > 0) ? record.images[0].url : ''}
+          src={record.images[0].url || ''} //Inserir ? antes do ponto solucionou
+
 
           alt={record.name}
           className="w-20 h-20 object-scale-down rounded-full"

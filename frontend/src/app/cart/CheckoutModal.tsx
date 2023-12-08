@@ -1,11 +1,10 @@
-import { API_URL } from "@/constans";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import { message, notification } from "antd";
-import Modal from "antd/es/modal/Modal";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import CheckoutForm from "./CheckoutForm";
+import { Modal, notification } from 'antd';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { API_URL } from '@/constans';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement } from '@stripe/react-stripe-js';
+import CheckoutForm from './CheckoutForm';
 
 const stripePromise = loadStripe('pk_test_51OJmapIW9JnRLuqYJGye1vj7BkFHGLKKkzaG11y6b3Ds3Ji7RaITTUARoNGCoY9A1qa9T9DujBIGzY2TNRwLAjVv00WDZ5zk4U');
 

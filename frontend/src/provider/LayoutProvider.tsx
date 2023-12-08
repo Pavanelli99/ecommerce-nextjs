@@ -46,16 +46,15 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    // when the cartitems changes, we will save cart items in cart
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-  }, [cartItems]);
+    // when the cartItems changes, we will save carItems into localStorage
+    localStorage.setItem("cartItems", JSON.stringify(cartItems))
+  }, [cartItems])
 
   const getCurrentUser = async () => {
     try {
       setLoading(true);
       // get axios in backend
-      setCurrentUser('Beto');
+      setCurrentUser('Eduardo');
     } catch (error: any) {
       notification.error({
         message: 'Error',
@@ -90,7 +89,7 @@ function LayoutProvider({ children }: { children: React.ReactNode }) {
               <Popover content={content} trigger="click">
                 <div className="flex h-8 w-8 bg-white p-2 rounded-full items-center justify-center cursor-pointer">
                   {/* <span>{currentUser.name[0]}</span> */}
-                  <span>B</span>
+                  <span>EP</span>
                 </div>
               </Popover>
             </div>

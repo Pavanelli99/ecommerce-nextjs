@@ -35,7 +35,7 @@ export default async function Home() {
             <Link href={`/product/${product.id}`}>
               <div className="text-center">
                 <Image
-                  src={product.images[0].url}
+                  src={product.images[0]?.url}
                   width={200}
                   height={300}
                   alt=""
